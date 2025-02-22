@@ -10,18 +10,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+#plotting graphs of different life expectancy at birth over the years
+#defining a function i can repeatedly use to plot different countries within my df
+def life_expectancy_plots(df, country, color, ls='-', label=None):
+    country_data = df[(df['Location'] == country) & (df['Sex'] == 'Both sexes')]
+    plt.plot(country_data['Year'], country_data['FactValueNumeric'], color=color, ls=ls, lw=3, label=label)
 life_expectancy=pd.read_csv('life_expectancy_data.csv', index_col=0)
 print(life_expectancy.columns)
-#i want a line plot to see how the life expectancy in african countries has improved through the years
-country_AFR=life_expectancy[(life_expectancy['Location']=='Zimbabwe') & (life_expectancy['Sex']=='Both sexes')]
-#sorting my data by year
-country_AFR=country_AFR.sort_values(by='Year') 
-plt.plot(country_AFR['Year'],country_AFR['FactValueNumeric'])
-plt.title('Life Expectancy in Zimbabwe Over Time')
+#line plots to compare different countries
+life_expectancy_plots(life_expectancy,'Zimbabwe', 'g', ls='--', label='Zimbabwe')
+life_expectancy_plots(life_expectancy,'United Kingdom of Great Britain and Northern Ireland', 'b', ls='-', label='UK')
+life_expectancy_plots(life_expectancy,'Canada', 'r', ls=':', label='Canada') 
+life_expectancy_plots(life_expectancy,'Brazil', 'm', ls=':', label='Brazil') 
+life_expectancy_plots(life_expectancy,'Indonesia', 'c', ls='-.', label='Indonesia')
+plt.title('Life Expectancy in different countries over time')
 plt.xlabel('Year')
 plt.ylabel('Life Expectancy')
+#my graph has a gap at the left so to correct this i'm using xlim on year
+plt.xlim(left=life_expectancy['Year'].min()) 
+plt.grid(True)
+plt.legend()
 plt.show()
-
-
-
 
