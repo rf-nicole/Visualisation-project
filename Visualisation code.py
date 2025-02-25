@@ -32,12 +32,18 @@ plt.grid(True) #it looks better with gridlines
 plt.legend()
 plt.show()
 
-#now we do a scatter plot to try see if there is a correlation
-region_data=life_expectancy[life_expectancy['ParentLocation']=='Africa']
-plt.hist(region_data['FactValueNumeric'], bins=10,color='b', alpha=0.7)
+#now we do a histogram to see how to distribute life expectancy in africa
+#to filter my data set into the continent column only i'll use a function
+def continent_data(df, region, color, bins=10, alpha=0.7, label=None):   
+    region_data=df[(df['ParentLocation']==region)]
+    plt.hist(region_data['FactValueNumeric'], bins=bins, alpha=alpha, label=label)
+continent_data(life_expectancy, 'Africa', 'b', bins=10, alpha=0.9, label='Africa')
+continent_data(life_expectancy, 'Europe', 'r', bins=10, alpha=0.5, label='Europe')
 plt.xlabel('Life Expectancy')
 plt.ylabel('Frequency')
 plt.title('Distribution of Life Expectancy in Africa')
+plt.legend()
 plt.show()
+
 
 
