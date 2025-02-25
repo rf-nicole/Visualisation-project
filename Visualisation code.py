@@ -28,7 +28,16 @@ plt.xlabel('Year')
 plt.ylabel('Life Expectancy')
 #my graph has a gap at the left so to correct this i'm using xlim on year
 plt.xlim(left=life_expectancy['Year'].min()) 
-plt.grid(True)
+plt.grid(True) #it looks better with gridlines
 plt.legend()
 plt.show()
+
+#now we do a scatter plot to try see if there is a correlation
+region_data=life_expectancy[life_expectancy['ParentLocation']=='Africa']
+plt.hist(region_data['FactValueNumeric'], bins=10,color='b', alpha=0.7)
+plt.xlabel('Life Expectancy')
+plt.ylabel('Frequency')
+plt.title('Distribution of Life Expectancy in Africa')
+plt.show()
+
 
