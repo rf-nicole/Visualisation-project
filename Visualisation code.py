@@ -12,7 +12,9 @@ import pandas as pd
 
 #plotting graphs of different life expectancy at birth over the years
 #defining a function i can repeatedly use to plot different countries within my df
+#here it takes the dataframe, country, and a few customizations
 def life_expectancy_plots(df, country, color, ls='-', label=None):
+    #i want to filter by country and to make sure both sexes are represented
     country_data = df[(df['Location'] == country) & (df['Sex'] == 'Both sexes')]
     plt.plot(country_data['Year'], country_data['FactValueNumeric'], color=color, ls=ls, lw=3, label=label)
 life_expectancy=pd.read_csv('life_expectancy_data.csv', index_col=0)
@@ -45,5 +47,14 @@ plt.title('Distribution of Life Expectancy in Africa')
 plt.legend()
 plt.show()
 
+#now to look at a third visualisation method
+def continent_boxplots(df, continent):
+    df.boxplot(column=continent, by='ParentLocation')
+    plt.title('Boxplots by continent')
+    plt.xlabel('Continent')
+    plt.ylabel('Life Expectancy')
+    plt.xticks(rotation=45)
+continent_boxplots(life_expectancy, 'FactValueNumeric')
+plt.show()       
 
 
