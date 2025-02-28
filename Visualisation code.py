@@ -47,12 +47,14 @@ plt.title('Distribution of Life Expectancy in Africa')
 plt.legend()
 plt.show()
 
-#now to look at a third visualisation method
+#now to look at a third visualisation method boxplots
+#defining a function where we can group the data by continent
 def continent_boxplots(df, continent):
     df.boxplot(column=continent, by='ParentLocation')
     plt.title('Boxplots by continent')
     plt.xlabel('Continent')
     plt.ylabel('Life Expectancy')
+    #for the names of the continents to fit properly i used xticks to rotate them
     plt.xticks(rotation=45)
 continent_boxplots(life_expectancy, 'FactValueNumeric')
 plt.show()       
